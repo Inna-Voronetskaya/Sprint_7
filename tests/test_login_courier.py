@@ -4,7 +4,7 @@ import pytest
 
 from api.courier_api import CourierApi
 from helpers.data_generator import generate_courier_login_data, generate_random_string
-from config import StatusCodes, ERROR_MESSAGES
+from config import StatusCodes, ErrorMessages
 
 
 @allure.feature("Логин курьера")
@@ -31,7 +31,7 @@ class TestLoginCourier:
         })
 
         assert response.status_code == StatusCodes.BAD_REQUEST
-        assert ERROR_MESSAGES["insufficient_login_data"] in response.json()["message"]
+        assert ErrorMessages.INSUFFICIENT_LOGIN_DATA in response.json()["message"]
 
     @allure.title("Если не передать password → ошибка (баг API: 504)")
     @pytest.mark.skip(reason="API возвращает 504 вместо 400 при отсутствии password")
@@ -41,7 +41,7 @@ class TestLoginCourier:
         })
 
         assert response.status_code == StatusCodes.BAD_REQUEST
-        assert ERROR_MESSAGES["insufficient_login_data"] in response.json()["message"]
+        assert ErrorMessages.INSUFFICIENT_LOGIN_DATA in response.json()["message"]
 
     @allure.title("Неверный логин → ошибка 404")
     def test_login_with_wrong_login_returns_error(self, courier):
@@ -51,7 +51,7 @@ class TestLoginCourier:
         })
 
         assert response.status_code == StatusCodes.NOT_FOUND
-        assert ERROR_MESSAGES["account_not_found"] in response.json()["message"]
+        ErrorMessages.ACCOUNT_NOT_FOUND
 
     @allure.title("Неверный пароль → ошибка 404")
     def test_login_with_wrong_password_returns_error(self, courier):
@@ -61,11 +61,11 @@ class TestLoginCourier:
         })
 
         assert response.status_code == StatusCodes.NOT_FOUND
-        assert ERROR_MESSAGES["account_not_found"] in response.json()["message"]
+        ErrorMessages.ACCOUNT_NOT_FOUND
 
     @allure.title("Несуществующий пользователь → ошибка 404")
     def test_login_with_nonexistent_user_returns_error(self):
         response = CourierApi.login_courier(generate_courier_login_data())
 
         assert response.status_code == StatusCodes.NOT_FOUND
-        assert ERROR_MESSAGES["account_not_found"] in response.json()["message"]
+        ErrorMessages.ACCOUNT_NOT_FOUND

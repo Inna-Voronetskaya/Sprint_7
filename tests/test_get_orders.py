@@ -3,7 +3,7 @@
 import allure
 
 from api.orders_api import OrdersApi
-from config import StatusCodes, ERROR_MESSAGES
+from config import StatusCodes, ErrorMessages
 
 
 @allure.feature("Список заказов")
@@ -25,5 +25,5 @@ class TestGetOrders:
         response = OrdersApi.get_orders(courier_id=courier_id)
 
         assert response.status_code == StatusCodes.NOT_FOUND
-        expected = ERROR_MESSAGES["courier_id_not_found"].format(courier_id=courier_id)
+        expected = ErrorMessages.COURIER_ID_NOT_FOUND.format(courier_id=courier_id)
         assert expected in response.json()["message"]

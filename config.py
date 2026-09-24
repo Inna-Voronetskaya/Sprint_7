@@ -1,9 +1,19 @@
 # config.py
 
-BASE_URL = 'https://qa-scooter.praktikum-services.ru'
+
+class Urls:
+    """Адреса сервиса Яндекс Самокат."""
+    BASE_URL = 'https://qa-scooter.praktikum-services.ru'
+    COURIER = f'{BASE_URL}/api/v1/courier'
+    COURIER_LOGIN = f'{BASE_URL}/api/v1/courier/login'
+    ORDERS = f'{BASE_URL}/api/v1/orders'
+    ORDERS_TRACK = f'{BASE_URL}/api/v1/orders/track'
+    ORDERS_ACCEPT = f'{BASE_URL}/api/v1/orders/accept'
+    ORDERS_CANCEL = f'{BASE_URL}/api/v1/orders/cancel'
 
 
 class StatusCodes:
+    """Коды ответов API."""
     OK = 200
     CREATED = 201
     BAD_REQUEST = 400
@@ -11,18 +21,16 @@ class StatusCodes:
     CONFLICT = 409
 
 
-ERROR_MESSAGES = {
+class ErrorMessages:
+    """Тексты ошибок, которые возвращает API."""
     # Создание курьера
-    "login_already_used": "Этот логин уже используется. Попробуйте другой.",
-    "insufficient_creation_data": "Недостаточно данных для создания учетной записи",
+    LOGIN_ALREADY_USED = "Этот логин уже используется. Попробуйте другой."
+    INSUFFICIENT_CREATION_DATA = "Недостаточно данных для создания учетной записи"
 
     # Авторизация курьера
-    "account_not_found": "Учетная запись не найдена",
-    "insufficient_login_data": "Недостаточно данных для входа",
+    ACCOUNT_NOT_FOUND = "Учетная запись не найдена"
+    INSUFFICIENT_LOGIN_DATA = "Недостаточно данных для входа"
 
-    # DELETE /api/v1/courier/{id} — короткий текст
-    "courier_not_exist": "Курьера с таким id нет.",
-
-    # GET /api/v1/orders?courierId=... — длинный текст с id
-    "courier_id_not_found": "Курьер с идентификатором {courier_id} не найден",
-}
+    # Работа с курьером по id
+    COURIER_NOT_EXIST = "Курьера с таким id нет."
+    COURIER_ID_NOT_FOUND = "Курьер с идентификатором {courier_id} не найден"

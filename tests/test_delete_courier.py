@@ -4,7 +4,7 @@ import allure
 
 from api.courier_api import CourierApi
 from api.api_helpers import ApiHelpers
-from config import StatusCodes, ERROR_MESSAGES
+from config import StatusCodes, ErrorMessages
 
 
 @allure.feature("Удаление курьера")
@@ -26,7 +26,7 @@ class TestDeleteCourier:
         response = CourierApi.delete_courier(999999)
 
         assert response.status_code == StatusCodes.NOT_FOUND
-        assert ERROR_MESSAGES["courier_not_exist"] in response.json()["message"]
+        assert ErrorMessages.COURIER_NOT_EXIST in response.json()["message"]
 
     @allure.title("Запрос без id → ошибка")
     def test_delete_courier_without_id_returns_error(self):
